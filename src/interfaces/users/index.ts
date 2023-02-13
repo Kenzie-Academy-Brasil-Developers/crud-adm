@@ -5,3 +5,7 @@ export interface IUserRequest {
     admin: boolean;
     active: boolean;
 }
+
+export interface IUser extends IUserRequest {
+    id: number
+}
