@@ -1,3 +1,5 @@
+import { QueryResult } from 'pg';
+
 export interface IUserRequest {
     name: string;
     email: string;
@@ -7,5 +9,8 @@ export interface IUserRequest {
 }
 
 export interface IUser extends IUserRequest {
-    id: number
+    id: number;
 }
+
+export type UserWithoutPwd = Omit<IUser, 'password'>;
+export type UserResult = QueryResult<UserWithoutPwd>;
