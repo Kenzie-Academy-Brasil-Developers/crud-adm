@@ -1,5 +1,5 @@
 import { app as server } from './app';
-import { connectDatabase } from './database/config';
+import { connectDatabase } from './database/connection';
 
 server.listen(3000, async () => {
     await connectDatabase();

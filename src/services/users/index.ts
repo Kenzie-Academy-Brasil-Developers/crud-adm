@@ -1,5 +1,6 @@
 import format from 'pg-format';
-import { client } from '../../database/connection';
+
+import { client } from '../../database/config';
 import { IUserRequest, UserResult, UserWithoutPwd } from '../../interfaces/users';
 
 export const createUsersService = async (body: IUserRequest): Promise<UserWithoutPwd> => {
