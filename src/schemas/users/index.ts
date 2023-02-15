@@ -7,3 +7,5 @@ export const userSchema = z.object({
     admin: z.boolean(),
     active: z.boolean()
 });
+
+export const userRequestSchema = userSchema.extend({ id: z.number() });
