@@ -5,10 +5,9 @@ export const userSchema = z.object({
     email: z.string().email().max(100),
     password: z.string().min(3).max(120),
     admin: z.boolean(),
-    active: z.boolean()
 });
 
-export const userRequestSchema = z.object({ id: z.number(), ...userSchema.shape });
+export const userRequestSchema = z.object({ id: z.number(), ...userSchema.shape, active: z.boolean() });
 
 export const UserWithoutPwdSchema = userRequestSchema.omit({ password: true });
 export const UserOnlyWithEmailSchema = userSchema.pick({ email: true });
