@@ -8,7 +8,7 @@ export const userSchema = z.object({
     active: z.boolean()
 });
 
-export const userRequestSchema = userSchema.extend({ id: z.number() });
+export const userRequestSchema = z.object({ id: z.number(), ...userSchema.shape });
 
 export const UserWithoutPwdSchema = userRequestSchema.omit({ password: true });
 export const UserOnlyWithEmailSchema = userSchema.pick({ email: true });
