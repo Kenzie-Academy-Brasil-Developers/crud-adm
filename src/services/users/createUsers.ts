@@ -7,7 +7,7 @@ import { UserWithoutPwdSchema } from '../../schemas/users';
 
 export const createUsersService = async (payload: tUserRequest): Promise<tUserWithoutPwd> => {
 
-    const hashedPwd = await hash(payload.password, 10);
+    const hashedPwd: string = await hash(payload.password, 10);
     payload.password = hashedPwd;
 
     const queryString: string = format(`
@@ -22,5 +22,10 @@ export const createUsersService = async (payload: tUserRequest): Promise<tUserWi
 
     const queryResult: tUserResult = await client.query(queryString);
 
-    return UserWithoutPwdSchema.parse(queryResult.rows[0]);
+    const newPayload: tUserWithoutPwd = {
+        ...queryResult.rows[0],
+        active: true
+    };
+
+    return UserWithoutPwdSchema.parse(newPayload);
 };
