@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { tLogin, tUserRequest } from '../../interfaces/users';
 import { createUsersService } from '../../services/users/createUsers';
-import { loginUsersService } from '../../services/users/loginUsers';
+import { usersLoginService } from '../../services/users/usersLogin';
 
 export const createUsersController = async (req: Request, res: Response): Promise<Response> => {
     const body: tUserRequest = req.body;
@@ -11,10 +11,10 @@ export const createUsersController = async (req: Request, res: Response): Promis
     return res.status(201).json(userData);
 };
 
-export const loginController = async (req: Request, res: Response): Promise<Response> => {
+export const usersLoginController = async (req: Request, res: Response): Promise<Response> => {
     const body: tLogin = req.body;
 
-    const token = await loginUsersService(body);
+    const token = await usersLoginService(body);
 
     return res.json(token);
 };
