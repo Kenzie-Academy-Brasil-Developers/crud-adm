@@ -1,6 +1,6 @@
 import 'express-async-errors';
 import express, { Application } from 'express';
-import { handleErrors } from './errors';
+import { handleErrors } from './middlewares/users/errorHandler';
 import { userRoutes } from './routers/users';
 
 export const app: Application = express();
