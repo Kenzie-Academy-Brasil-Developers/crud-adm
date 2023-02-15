@@ -14,3 +14,4 @@ export interface IUser extends IUserRequest {
 
 export type UserWithoutPwd = Omit<IUser, 'password'>;
 export type UserResult = QueryResult<UserWithoutPwd>;
+export type UserOnlyWithEmailResult = QueryResult<Pick<IUser, 'email'>>;
