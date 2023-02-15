@@ -1,9 +1,9 @@
 import format from 'pg-format';
 
 import { client } from '../../database/config';
-import { IUserRequest, UserResult, UserWithoutPwd } from '../../interfaces/users';
+import { tUserRequest, tUserResult, tUserWithoutPwd } from '../../interfaces/users';
 
-export const createUsersService = async (body: IUserRequest): Promise<UserWithoutPwd> => {
+export const createUsersService = async (body: tUserRequest): Promise<tUserWithoutPwd> => {
 
     const queryString: string = format(`
         INSERT INTO
@@ -15,7 +15,7 @@ export const createUsersService = async (body: IUserRequest): Promise<UserWithou
         Object.values(body)
     );
 
-    const QueryResult: UserResult = await client.query(queryString);
+    const QueryResult: tUserResult = await client.query(queryString);
 
     return QueryResult.rows[0];
 };
