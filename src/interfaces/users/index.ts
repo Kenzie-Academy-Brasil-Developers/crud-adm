@@ -7,5 +7,5 @@ export type tUser = z.infer<typeof userRequestSchema>;
 export type tUserWithoutPwd = z.infer<typeof UserWithoutPwdSchema>;
 export type tLogin = z.infer<typeof loginSchema>;
 
-export type tUserResult = QueryResult<tUserWithoutPwd>;
+export type tUserResult = QueryResult<tUser>;
 export type tUserOnlyWithEmailResult = QueryResult<z.infer<typeof UserOnlyWithEmailSchema>>;
