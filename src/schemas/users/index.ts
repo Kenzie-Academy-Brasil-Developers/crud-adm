@@ -7,6 +7,12 @@ export const userSchema = z.object({
     admin: z.boolean(),
 });
 
+export const userUpdateSchema = z.object({
+    name: z.string().min(3).max(20).optional(),
+    email: z.string().email().max(100).optional(),
+    password: z.string().min(3).max(120).optional(),
+})
+
 export const userRequestSchema = z.object({ id: z.number(), ...userSchema.shape, active: z.boolean() });
 
 export const UserWithoutPwdSchema = userRequestSchema.omit({ password: true });
