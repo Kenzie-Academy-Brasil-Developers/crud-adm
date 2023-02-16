@@ -34,16 +34,17 @@ export const verifyToken = async (req: Request, res: Response, next: NextFunctio
 
     const token: string = authToken.split(' ')[1];
 
-    const userEmail: string | void = verify(
+    const tokenInfo: any = verify(
         token,
         String(process.env.SECRET_KEY),
         (error: any, decoded: any) => {
             if (error) throw new AppError(error.message, 401);
-            return decoded.email;
+            return decoded;
         }
     );
 
-    req.userEmail = userEmail;
+    req.userEmail = tokenInfo.email;
+    req.userId = parseInt(tokenInfo.sub);
 
     return next();
 };
