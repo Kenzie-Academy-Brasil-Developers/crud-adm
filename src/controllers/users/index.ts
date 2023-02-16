@@ -4,6 +4,7 @@ import { tLogin, tUpdateRequest, tUserRequest } from '../../interfaces/users';
 import { createUsersService } from '../../services/users/createUsers';
 import { getAllUsersService } from '../../services/users/getAllUsers';
 import { getLoggedUserService } from '../../services/users/getLoggedUser';
+import { softDeleteService } from '../../services/users/softDelete';
 import { usersLoginService } from '../../services/users/usersLogin';
 import { userUpdateService } from '../../services/users/userUpdate';
 
@@ -42,4 +43,12 @@ export const userUpdateController = async (req: Request, res: Response): Promise
     const updatedUser = await userUpdateService(body, paramsId);
 
     return res.json(updatedUser);
+};
+
+export const softDeleteController = async (req: Request, res: Response): Promise<Response> => {
+    const id: number = parseInt(req.params.id);
+
+    await softDeleteService(id);
+
+    return res.status(204).send();
 };
