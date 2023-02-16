@@ -23,7 +23,7 @@ export const usersLoginController = async (req: Request, res: Response): Promise
 };
 
 export const getAllUsersController = async (req: Request, res: Response): Promise<Response> => {
-    const users = await getAllUsersService();
+    const users = await getAllUsersService(req.isAdmin);
 
     return res.json(users);
 };
