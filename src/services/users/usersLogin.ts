@@ -1,4 +1,5 @@
 import { compare } from 'bcryptjs';
+import 'dotenv/config';
 import { sign } from 'jsonwebtoken';
 import format from 'pg-format';
 import { client } from '../../database/config';
