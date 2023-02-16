@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { createUsersController, getAllUsersController, getLoggedUserController, usersLoginController, userUpdateController } from '../../controllers/users';
+import { createUsersController, getAllUsersController, getLoggedUserController, softDeleteController, usersLoginController, userUpdateController } from '../../controllers/users';
 import { checkPermission, checkUserEmail, checkUserId, verifyAdminAccess, verifyToken } from '../../middlewares/users';
 import { validateBody } from '../../middlewares/validateBody';
 import { loginSchema, userSchema, userUpdateSchema } from '../../schemas/users';
@@ -12,5 +12,6 @@ userRoutes.post('', validateBody(userSchema), checkUserEmail, createUsersControl
 userRoutes.get('', verifyToken, verifyAdminAccess, getAllUsersController);
 userRoutes.get('/profile', verifyToken, getLoggedUserController);
 userRoutes.patch('/:id', validateBody(userUpdateSchema), checkUserId, checkUserEmail, verifyToken, verifyAdminAccess, checkPermission, userUpdateController);
+userRoutes.delete('/:id', checkUserId, verifyToken, verifyAdminAccess, checkPermission, softDeleteController);
 
 loginRoute.post('', validateBody(loginSchema), usersLoginController);
