@@ -11,5 +11,6 @@ export const userRequestSchema = z.object({ id: z.number(), ...userSchema.shape,
 
 export const UserWithoutPwdSchema = userRequestSchema.omit({ password: true });
 export const UserOnlyWithEmailSchema = userSchema.pick({ email: true });
+export const allUsersSchema = z.array(UserWithoutPwdSchema)
 
 export const loginSchema = userSchema.pick({ email: true, password: true });
