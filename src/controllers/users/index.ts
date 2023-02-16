@@ -1,10 +1,11 @@
 import { Request, Response } from 'express';
 
-import { tLogin, tUserRequest } from '../../interfaces/users';
+import { tLogin, tUpdateRequest, tUserRequest } from '../../interfaces/users';
 import { createUsersService } from '../../services/users/createUsers';
 import { getAllUsersService } from '../../services/users/getAllUsers';
 import { getLoggedUserService } from '../../services/users/getLoggedUser';
 import { usersLoginService } from '../../services/users/usersLogin';
+import { userUpdateService } from '../../services/users/userUpdate';
 
 export const createUsersController = async (req: Request, res: Response): Promise<Response> => {
     const body: tUserRequest = req.body;
@@ -32,4 +33,13 @@ export const getLoggedUserController = async (req: Request, res: Response): Prom
     const user = await getLoggedUserService(req.userEmail);
 
     return res.json(user);
+};
+
+export const userUpdateController = async (req: Request, res: Response): Promise<Response> => {
+    const body: tUpdateRequest = req.body;
+    const paramsId: number = parseInt(req.params.id);
+
+    const updatedUser = await userUpdateService(body, paramsId);
+
+    return res.json(updatedUser);
 };
