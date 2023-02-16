@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 
 import { tLogin, tUpdateRequest, tUserRequest } from '../../interfaces/users';
+import { activateUserService } from '../../services/users/activateUser';
 import { createUsersService } from '../../services/users/createUsers';
 import { getAllUsersService } from '../../services/users/getAllUsers';
 import { getLoggedUserService } from '../../services/users/getLoggedUser';
@@ -51,4 +52,13 @@ export const softDeleteController = async (req: Request, res: Response): Promise
     await softDeleteService(id);
 
     return res.status(204).send();
+};
+
+export const activateUserController = async (req: Request, res: Response): Promise<Response> => {
+    const id: number = parseInt(req.params.id);
+    const isAdmin: boolean = req.isAdmin;
+
+    const user = await activateUserService(id, isAdmin);
+
+    return res.json(user);
 };
