@@ -3,7 +3,7 @@ import { verify } from 'jsonwebtoken';
 import format from 'pg-format';
 import { client } from '../../database/config';
 import { AppError } from '../../errors';
-import { tUserOnlyWithEmailResult } from '../../interfaces/users';
+import { tUserOnlyWithEmailResult, tUserResult } from '../../interfaces/users';
 
 export const checkUserEmail = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
     if (req.body.email) {
@@ -40,6 +40,31 @@ export const verifyToken = async (req: Request, res: Response, next: NextFunctio
             if (error) throw new AppError(error.message, 401);
         }
     );
+
+    return next();
+};
+
+export const verifyAdminAccess = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
+    const authToken = req.headers.authorization!;
+    const token: string = authToken.split(' ')[1];
+
+    const userEmail: string | void = verify(
+        token,
+        String(process.env.SECRET_KEY),
+        (error: any, decoded: any) => decoded.email
+    );
+
+    const queryString: string = format(`
+        SELECT * FROM users WHERE email = %L;
+    `,
+        userEmail
+    );
+
+    const queryResult: tUserResult = await client.query(queryString);
+
+    if (!queryResult.rows[0].admin) {
+        throw new AppError('Insufficient Permission', 403);
+    }
 
     return next();
 };
