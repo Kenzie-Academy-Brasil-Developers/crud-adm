@@ -1,9 +1,9 @@
 import { Router } from 'express';
 
-import { activateUserController, createUsersController, getAllUsersController, getLoggedUserController, softDeleteController, usersLoginController, userUpdateController } from '../../controllers/users';
+import { activateUserController, createUsersController, getAllUsersController, getLoggedUserController, softDeleteController, userUpdateController } from '../../controllers/users';
 import { checkPermission, checkUserEmail, checkUserId, verifyAdminAccess, verifyToken } from '../../middlewares/users';
 import { validateBody } from '../../middlewares/validateBody';
-import { loginSchema, userSchema, userUpdateSchema } from '../../schemas/users';
+import { userSchema, userUpdateSchema } from '../../schemas/users';
 
 export const userRoutes: Router = Router();
 
