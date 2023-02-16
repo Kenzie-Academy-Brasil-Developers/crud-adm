@@ -66,9 +66,7 @@ export const verifyAdminAccess = async (req: Request, res: Response, next: NextF
 
     const queryResult: tUserResult = await client.query(queryString);
 
-    if (!queryResult.rows[0].admin) {
-        throw new AppError('Insufficient Permission', 403);
-    }
+    req.isAdmin = queryResult.rows[0].admin;
 
     return next();
 };
