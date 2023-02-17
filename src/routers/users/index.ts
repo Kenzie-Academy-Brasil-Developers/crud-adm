@@ -1,7 +1,11 @@
 import { Router } from 'express';
 
 import { activateUserController, createUsersController, getAllUsersController, getLoggedUserController, softDeleteController, userUpdateController } from '../../controllers/users';
-import { checkPermission, checkUserEmail, checkUserId, verifyAdminAccess, verifyToken } from '../../middlewares/users';
+import { checkPermission } from '../../middlewares/users/checkPermission';
+import { checkUserEmail } from '../../middlewares/users/checkUserEmail';
+import { checkUserId } from '../../middlewares/users/checkUserId';
+import { verifyAdminAccess } from '../../middlewares/users/verifyAdminAccess';
+import { verifyToken } from '../../middlewares/users/verifyToken';
 import { validateBody } from '../../middlewares/validateBody';
 import { userSchema, userUpdateSchema } from '../../schemas/users';
 
